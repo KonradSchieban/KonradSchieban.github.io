@@ -1,1 +1,108 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Neighborhood Map</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+	<div class="container" data-bind="with: model">
+        <header class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+				<h1>Neighborhood Map</h1>
+			</div>
+		</header>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<hr>
+			</div>
+		</div>
+		
+		<div class="form-group row">
+			<label for="searchLocation" class="col-xs-2 col-form-label">Location</label>
+			<div class="col-xs-10">
+				<input class="form-control" value="Brookline, MA" id="searchLocation" data-bind="textInput: searchLocation">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="searchString" class="col-xs-2 col-form-label">Search Sring:</label>
+			<div class="col-xs-10">
+				<input class="form-control" type="text" value="Restaurant" id="searchString" data-bind="textInput: searchString">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="searchRadius" class="col-xs-2 col-form-label">Radius</label>
+			<div class="col-xs-10">
+				<input class="form-control" type="search" value="200" id="searchRadius" data-bind="textInput: searchRadius">
+				</div>
+			</div>
+		<div class="form-group row">
+			<div class="col-xs-12">
+				<button type="submit" class="btn btn-primary" data-bind="click: $parent.search">Search</button>
+			</div>
+		</div>
+		<div class="row error-message">
+			<div class="col-xs-12">
+				<p data-bind="text: errorMessage"></p>
+			</div>
+		</div>
+		<div class="row main-row">
+			<div class="col-md-4 col-sm-4 col-xs-4 aside">
+
+				<div class="form-group row">
+					<label for="filter" class="col-xs-2 col-form-label">Filter</label>
+					<div class="col-xs-10">
+						<input class="form-control" value="" data-bind="textInput: listFilter, value: listFilter, valueUpdate: 'afterkeydown'" id="filter">
+					</div>
+				</div>
+				
+				<ul class="list-group" id="markers-list" data-bind="foreach: markersMapFiltered">
+					
+					<li class="list-group-item" data-bind="attr: {id: id}"><a class="list-group-item-link" href="#" data-bind="text: name, click: function () { $root.setCurrentItem(name,id) }"></a></li>
+				
+				</ul>
+				
+			</div>
+			<div class="col-md-8 col-sm-8 col-xs-8 main map-container">
+				<div id="map"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<hr>
+			</div>
+		</div>
+		<div class="row section">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="wiki">
+					<h3 class="wikiLinks">Wikipedia Links</h3>
+				
+					<ul data-bind="foreach: wikiJSON">
+					
+						<li>
+							<p data-bind="text: description"></p>
+							<a href="" data-bind="text: name, attr: {href: url}"></a>
+							<br>
+						</li>
+					
+					</ul>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="js/libs/jquery.min.js"></script>
+	<script src="js/libs/knockout-3.4.1.js"></script>
+	<script type="text/javascript" src="js/sampleData.js"></script> 
+	<script src="js/app.js">0</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Jg7sAvCB45oZF5Zm5Ig1gwKtYg7LFj0&libraries=places&callback=initMap" async defer onerror="googleError()"></script>
+	
+</body>
+</html>
+
+
+
